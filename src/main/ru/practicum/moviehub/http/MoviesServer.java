@@ -28,6 +28,7 @@ public class MoviesServer {
         server.createContext("/movies", new MoviesHandler(gson, store));
         server.start();
     }
+
     public void stop() {
         server.stop(0);
     }
