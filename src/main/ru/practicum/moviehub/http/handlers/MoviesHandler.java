@@ -164,7 +164,7 @@ public class MoviesHandler extends BaseHttpHandler {
         try {
             id = Integer.parseInt(movieId);
 
-            if(id < 0) {
+            if (id < 0) {
                 sendBadRequest(exchange);
                 return;
             }
