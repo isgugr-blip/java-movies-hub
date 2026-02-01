@@ -48,9 +48,10 @@ public class MoviesApiTest {
                 .build();
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
     public HttpResponse<String> getMovies(Integer year) throws IOException, InterruptedException {
         String url = baseUrl + "/movies/";
-        if(year != null){
+        if (year != null) {
             url = url + "?year=" + year;
         }
         HttpRequest request = HttpRequest
@@ -59,6 +60,7 @@ public class MoviesApiTest {
                 .build();
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
     public HttpResponse<String> getMovieById(int id) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest
                 .newBuilder(URI.create(baseUrl + "/movies/" + id))
@@ -66,6 +68,7 @@ public class MoviesApiTest {
                 .build();
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
     public HttpResponse<String> deleteMovie(int id) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest
                 .newBuilder(URI.create(baseUrl + "/movies/" + id))
