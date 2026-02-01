@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import ru.practicum.moviehub.store.Movie;
 import ru.practicum.moviehub.store.MoviesStore;
 
@@ -15,14 +14,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class MoviesApiTest {
     protected static MoviesServer server;
     protected static HttpClient client;
     protected static MoviesStore store;
     protected static Gson gson;
-    protected String baseUrl = "http://localhost:8080";
+    protected final String baseUrl = "http://localhost:8080";
 
     @BeforeAll
     static void beforeAll() {

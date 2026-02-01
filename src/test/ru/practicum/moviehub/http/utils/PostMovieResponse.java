@@ -1,9 +1,9 @@
 package ru.practicum.moviehub.http.utils;
 
 public class PostMovieResponse {
-    private int id;
-    private String title;
-    private int year;
+    private final int id;
+    private final String title;
+    private final int year;
 
     public PostMovieResponse(int id, String title, int year) {
         this.id = id;

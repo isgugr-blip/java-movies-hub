@@ -9,15 +9,13 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class MoviesServer {
-    Gson gson = new Gson();
-    MoviesStore store;
-    int port;
+    final Gson gson = new Gson();
+    final MoviesStore store;
 
     HttpServer server;
 
     public MoviesServer(MoviesStore moviesStore, int port) {
         this.store = moviesStore;
-        this.port = port;
 
         try {
             server = HttpServer.create(new InetSocketAddress(port), 0);

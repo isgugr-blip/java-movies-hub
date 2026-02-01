@@ -2,8 +2,8 @@ package ru.practicum.moviehub.store;
 
 public class Movie {
     private int id;
-    private String title;
-    private int year;
+    private final String title;
+    private final int year;
 
     public Movie(String title, int year) {
         this.title = title;

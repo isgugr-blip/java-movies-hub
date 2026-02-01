@@ -3,7 +3,7 @@ package ru.practicum.moviehub.validation;
 import java.util.List;
 
 public class ValidationException extends RuntimeException {
-    private List<String> errors;
+    private final List<String> errors;
 
     public ValidationException(List<String> errors) {
         super("Validation failed");

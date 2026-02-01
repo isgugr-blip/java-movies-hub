@@ -19,8 +19,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class MoviesHandler extends BaseHttpHandler {
-    MoviesStore store;
-    Gson gson;
+    final MoviesStore store;
+    final Gson gson;
 
     public MoviesHandler(Gson gson, MoviesStore store) {
         this.gson = gson;
@@ -99,7 +99,7 @@ public class MoviesHandler extends BaseHttpHandler {
         try {
             json = gson.fromJson(body, JsonObject.class);
         } catch (JsonSyntaxException e) {
-            sendBadRequest(exchange, "Invalid JSON");
+            sendBadRequest(exchange);
             return;
         }
 
@@ -165,23 +165,21 @@ public class MoviesHandler extends BaseHttpHandler {
             id = Integer.parseInt(movieId);
 
             if(id < 0) {
-                sendBadRequest(exchange, "Movie ID should be greater than 0");
+                sendBadRequest(exchange);
                 return;
             }
         } catch (NumberFormatException e) {
-            sendBadRequest(exchange, "Movie ID should be a number");
+            sendBadRequest(exchange);
             return;
         }
         switch (exchange.getRequestMethod()) {
             case "GET":
                 handleGetMovieById(exchange, id);
                 break;
-            case "POST":
-                sendMethodNotAllowed(exchange);
-                break;
             case "DELETE":
                 handleDeleteMovie(exchange, id);
                 break;
+            case "POST":
             default:
                 sendMethodNotAllowed(exchange);
                 break;
@@ -196,7 +194,7 @@ public class MoviesHandler extends BaseHttpHandler {
         sendError(exchange, 404, "Not found");
     }
 
-    public void sendBadRequest(HttpExchange exchange, String message) throws IOException {
+    public void sendBadRequest(HttpExchange exchange) throws IOException {
         sendError(exchange, 400, "Bad request");
     }
 

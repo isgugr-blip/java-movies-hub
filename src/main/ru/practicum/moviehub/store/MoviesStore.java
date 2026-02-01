@@ -1,14 +1,13 @@
 package ru.practicum.moviehub.store;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class MoviesStore {
-    private HashMap<Integer, Movie> movies = new HashMap<>();
-    private AtomicInteger nextId = new AtomicInteger(1);
+    private final HashMap<Integer, Movie> movies = new HashMap<>();
+    private final AtomicInteger nextId = new AtomicInteger(1);
 
     public List<Movie> getMovies() {
         return movies.values().stream().toList();

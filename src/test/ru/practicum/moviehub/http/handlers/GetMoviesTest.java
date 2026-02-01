@@ -1,21 +1,13 @@
 package ru.practicum.moviehub.http.handlers;
 
-import com.google.gson.Gson;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.practicum.moviehub.http.MoviesApiTest;
-import ru.practicum.moviehub.http.MoviesServer;
 import ru.practicum.moviehub.http.utils.PostMovieResponse;
 import ru.practicum.moviehub.store.Movie;
-import ru.practicum.moviehub.store.MoviesStore;
 
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
