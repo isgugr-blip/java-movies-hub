@@ -1,6 +1,7 @@
 package ru.practicum.moviehub.http.handlers;
 
 import org.junit.jupiter.api.Test;
+import ru.practicum.moviehub.api.ErrorResponse;
 import ru.practicum.moviehub.http.MoviesApiTest;
 import ru.practicum.moviehub.http.utils.PostMovieResponse;
 import ru.practicum.moviehub.store.Movie;
@@ -10,9 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GetMoviesTest extends MoviesApiTest {
 
@@ -65,8 +64,11 @@ public class GetMoviesTest extends MoviesApiTest {
         HttpRequest request = HttpRequest.newBuilder(URI.create(baseUrl + "/movies/" + 1)).GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+        ErrorResponse errorResponse = gson.fromJson(response.body(), ErrorResponse.class);
+
         assertEquals(404, response.statusCode(), "Returns 404");
-        assertEquals("Movie not found", response.body(), "Returns empty movie");
+        assertNotNull(errorResponse.getError(), "Has error field");
+        assertNull(errorResponse.getDetails(), "Has not details field");
     }
 
     @Test

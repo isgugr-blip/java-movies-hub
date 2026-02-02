@@ -39,7 +39,7 @@ public class PostMovieTest extends MoviesApiTest {
     }
 
     @Test
-    void postMovie_withEmptyTitle_returns422() throws Exception {
+    void postMovie_withEmptyTitle_returns400() throws Exception {
         JsonObject movie = new JsonObject();
         movie.addProperty("title", "");
         movie.addProperty("year", 2010);
@@ -52,7 +52,7 @@ public class PostMovieTest extends MoviesApiTest {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(422, response.statusCode(), "Returns 422");
+        assertEquals(400, response.statusCode(), "Returns 400");
 
         ErrorResponse errorResponse = gson.fromJson(response.body(), ErrorResponse.class);
         assertNotNull(errorResponse.getError(), "Has error field");
@@ -61,7 +61,7 @@ public class PostMovieTest extends MoviesApiTest {
     }
 
     @Test
-    void postMovie_withTooLongTitle_returns422() throws Exception {
+    void postMovie_withTooLongTitle_returns400() throws Exception {
         String longTitle = "a".repeat(101);
         JsonObject movie = new JsonObject();
         movie.addProperty("title", longTitle);
@@ -75,7 +75,7 @@ public class PostMovieTest extends MoviesApiTest {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(422, response.statusCode(), "Returns 422");
+        assertEquals(400, response.statusCode(), "Returns 400");
 
         ErrorResponse errorResponse = gson.fromJson(response.body(), ErrorResponse.class);
         assertNotNull(errorResponse.getDetails(), "Has details");
@@ -84,7 +84,7 @@ public class PostMovieTest extends MoviesApiTest {
     }
 
     @Test
-    void postMovie_withYearBelow1888_returns422() throws Exception {
+    void postMovie_withYearBelow1888_returns400() throws Exception {
         JsonObject movie = new JsonObject();
         movie.addProperty("title", "Old Movie");
         movie.addProperty("year", 1887);
@@ -97,7 +97,7 @@ public class PostMovieTest extends MoviesApiTest {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(422, response.statusCode(), "Returns 422");
+        assertEquals(400, response.statusCode(), "Returns 400");
 
         ErrorResponse errorResponse = gson.fromJson(response.body(), ErrorResponse.class);
         assertTrue(errorResponse.getDetails().stream()
@@ -105,7 +105,7 @@ public class PostMovieTest extends MoviesApiTest {
     }
 
     @Test
-    void postMovie_withYearAboveLimit_returns422() throws Exception {
+    void postMovie_withYearAboveLimit_returns400() throws Exception {
         int futureYear = Year.now().getValue() + 2;
         JsonObject movie = new JsonObject();
         movie.addProperty("title", "Future Movie");
@@ -119,14 +119,14 @@ public class PostMovieTest extends MoviesApiTest {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(422, response.statusCode(), "Returns 422");
+        assertEquals(400, response.statusCode(), "Returns 400");
 
         ErrorResponse errorResponse = gson.fromJson(response.body(), ErrorResponse.class);
         assertFalse(errorResponse.getDetails().isEmpty(), "Has validation errors");
     }
 
     @Test
-    void postMovie_withMultipleValidationErrors_returns422WithAllDetails() throws Exception {
+    void postMovie_withMultipleValidationErrors_returns400WithAllDetails() throws Exception {
         JsonObject movie = new JsonObject();
         movie.addProperty("title", "");
         movie.addProperty("year", 1887);
@@ -139,7 +139,7 @@ public class PostMovieTest extends MoviesApiTest {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(422, response.statusCode(), "Returns 422");
+        assertEquals(400, response.statusCode(), "Returns 400");
 
         ErrorResponse errorResponse = gson.fromJson(response.body(), ErrorResponse.class);
         assertTrue(errorResponse.getDetails().size() >= 2, "Has at least 2 validation errors");
